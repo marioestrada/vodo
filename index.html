@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Vodo Media RSS by Mario Estrada</title>
+	
+	<!--
+		The CSS is generated from a .LESS file:
+		http://mario.ec/static/vodo/css/site.less
+	-->
+	<link href='http://fonts.googleapis.com/css?family=Cabin:bold' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="./css/site.css" />
+	
+</head>
+<body>
+	
+	<nav id="sidebar">
+		<header>
+			<h1>Vodo Media RSS</h1>
+			<div id="filter">
+				<input type="text" id="item_filter" value="" />
+			</div>
+		</header>
+		<div id="list">
+			<p id="loading_list">Loading, please wait&hellip;</p>
+		</div>
+		<footer>
+			<p><strong>Last updated:</strong> <span id="last_updated">&hellip;</span></p>
+		</footer>
+	</nav>
+	
+	<section id="content">
+		<article>
+			Waiting for data&hellip;
+		</article>
+	</section>
+	
+	<footer><strong>Tip:</strong> Navigate with <span class="key">J</span> and <span class="key">K</span> keys</footer>
+	
+	<!-- !Templates -->
+	<script id="list_item_template" type="text/x-jquery-tmpl">
+		<dl data-object="${json_string}">
+			<dt>
+				<h3>${title}</h3>
+				<div class="more_info">
+					<aside class="bubble">
+						<strong>Duration:</strong> ${$item.parseDuration(format.duration) || 'n/a'} <br />
+						<strong>Dimensions:</strong> ${format.width || 0}x${format.height || 0} (${format.pixel_aspect_ratio || 'n/a'}) <br />
+						<strong>Type:</strong> ${format.video_codec || 'n/a'}{{if format.audio_codec}}/${format.audio_codec}{{/if}}
+					</aside>
+				</div>
+			</dt>
+			<dd>
+				Published ${$item.parseDate(published)} by ${author.name}
+			</dd>
+		</dl>
+	</script>
+	
+	<script id="list_article_template" type="text/x-jquery-tmpl">
+		<article id="article_${id}">
+			<header>
+				<a href="#" class="next_article">Next entry <span class="icon"></span></a>
+				<h1>${title}</h1>
+				<p class="byline">
+					Published ${$item.formatDate(published)} by ${author.name}
+				</p>
+			</header>
+			
+			{{if _thumbnail}}
+			<figure>
+				<img src="${_thumbnail.url}" alt="${_thumbnail.title}" />
+			</figure>
+			{{/if}}
+			
+			<div class="content">
+				{{html content.content}}
+			</div>
+			
+			{{if link}}
+			<h4>Links:</h4>
+			<ul>
+				{{each link}}
+				<li><a target="_blank" href="${link[$index].href}">${$item.capitalize(link[$index].rel)}</a></li>
+				{{/each}}
+			</ul>
+			{{/if}}
+			
+			<footer>
+				<p>
+					<strong>Duration:</strong> ${$item.parseDuration(format.duration) || 'n/a'}
+					<strong>Dimensions:</strong> ${format.width || 0}x${format.height || 0} (${format.pixel_aspect_ratio || 'n/a'})
+					<strong>Type:</strong> ${format.video_codec || 'n/a'}{{if format.audio_codec}}/${format.audio_codec}{{/if}}<br />
+					<strong>License:</strong> <em>${rights}</em>
+				</p>
+			</footer>
+		</article>
+	</script>
+	
+	<!--
+		Usually on a production app I would minify and join all
+		scripts but was left on separate files for easy inspection.
+	-->
+	<script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+	<script src="./js/jquery.tmpl.js"></script>
+	<script src="./js/date.js"></script>
+	<script src="./js/site.js"></script>
+	
+	<script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script>
+  <script type="text/javascript">
+  try {
+  reinvigorate.track("qi88f-u76940ookm");
+  } catch(err) {}
+  </script>
+</body>
+</html>
